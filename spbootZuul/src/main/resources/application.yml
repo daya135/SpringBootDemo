@@ -1,0 +1,21 @@
+server:
+  port: 8764
+spring:
+  application:
+    name: spbootZuul
+    
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: spbootRibbon
+    api-b:
+      path: /api-b/**
+      serviceId: spbootFeign
+      
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+      
