@@ -1,1 +1,3 @@
 ./spboot*/target/*
+
+spbootConfigServer\src\main\resources\application.properties
