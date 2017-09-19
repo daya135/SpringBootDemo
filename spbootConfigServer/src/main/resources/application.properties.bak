@@ -1,0 +1,13 @@
+server.port=8888
+spring.application.name=spbootConfigServer
+    
+spring.cloud.config.server.git.uri=https://github.com/daya135/SpringBootDemo/
+spring.cloud.config.server.git.searchPaths=SpringcloudConfig
+spring.cloud.config.label=master
+spring.cloud.config.server.git.username=
+spring.cloud.config.server.git.password=
+
+#\u4f5c\u4e3a\u5206\u5e03\u5f0f\u914d\u7f6e\u670d\u52a1\u4e2d\u5fc3\u67b6\u6784\uff0c\u6307\u660e\u4e00\u4e2a\u670d\u52a1\u6ce8\u518c\u5730\u5740
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+
+      
