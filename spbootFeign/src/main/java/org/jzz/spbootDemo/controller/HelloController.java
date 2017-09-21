@@ -12,6 +12,7 @@ public class HelloController {
 	 @Autowired
 	 SchedualServiceHi schedualServiceHi;
 	
+	/* 此类中的方法和远程服务中contoller中的方法名和参数需保持一致。 */
 	@RequestMapping(value = "/hello") 
 	public String hi(@RequestParam String parm){
         return schedualServiceHi.helloService(parm);
