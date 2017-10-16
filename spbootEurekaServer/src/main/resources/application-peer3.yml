@@ -4,11 +4,17 @@ server:
 spring:
   profiles:
     active: peer3
-  
+
 eureka:
   instance:
     hostname: peer3
+  server:
+    enableSelfPreservation: false
+    leaseRenewalIntervalInSeconds: 2
   client:
+    #禁止注册自身
+    registerWithEureka: false
+    fetchRegistry: false
     serviceUrl:
       defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
       

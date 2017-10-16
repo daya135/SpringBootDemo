@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface SchedualServiceHi {
 	
 	/* 映射的地址要跟远程服务名地址一样  */
-	@RequestMapping(value = "/hello",method = RequestMethod.GET)
+	@RequestMapping(value = "/api-a/hello",method = RequestMethod.GET)
 	String helloService(@RequestParam(value = "parm") String name);
 }

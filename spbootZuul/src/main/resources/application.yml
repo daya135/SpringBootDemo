@@ -8,10 +8,10 @@ zuul:
   routes:
     api-a:
       path: /api-a/**
-      serviceId: spbootRibbon
+      serviceId: spbootFeign
     api-b:
       path: /api-b/**
-      serviceId: spbootFeign
+      serviceId: spbootRibbon
       
 eureka:
   client:

@@ -13,8 +13,8 @@ public class BindService {
 	
 	@HystrixCommand(fallbackMethod = "hiError")
 	public String helloService(String parm) {
-		//这里起到负载均衡要求多个实例的application那么一样
-		return restTemplate.getForObject("http://SPBOOTDEMO/hello?parm=" + parm, String.class);
+		//这里起到负载均衡要求多个实例的application name一样
+		return restTemplate.getForObject("http://SPBOOTDEMO1/api-b/hello?parm=" + parm, String.class);
 	}
 	
     public String hiError(String name) {

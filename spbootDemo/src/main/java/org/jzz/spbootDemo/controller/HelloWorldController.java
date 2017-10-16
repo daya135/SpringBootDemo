@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Component
+@RequestMapping("/api-a")
 public class HelloWorldController {
 	
 	@Autowired
@@ -31,7 +32,7 @@ public class HelloWorldController {
     @Value("${server.port}")
     String port;
     
-    @RequestMapping("/hello")
+    @RequestMapping("hello")
     public String hello(@RequestParam String parm) {
     	 return "this is spbootDemo, port= "+ port +", parm=" +parm;
     }

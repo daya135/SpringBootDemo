@@ -1,0 +1,4 @@
+使用对应版本的jre
+java -jar spbootDemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer1
+java -jar spbootDemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer2
+java -jar spbootDemo-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer3

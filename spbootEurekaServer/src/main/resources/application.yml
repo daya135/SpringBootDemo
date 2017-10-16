@@ -1,0 +1,19 @@
+server:
+  port: 8761
+    
+eureka:
+  instance:
+    hostname: localhost
+  server:
+    enableSelfPreservation: false
+    #心跳检测时长 
+    leaseRenewalIntervalInSeconds: 2
+  client:
+    #注册自身
+    registerWithEureka: false
+    #是否从eureka服务器获取注册信息
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://peer2:8762/eureka/,http://peer3:8763/eureka/
+#配置eureka-server集群时，最好在defaultZone同时配上所有eureka-server的地址，包括自身。
+#这样当多个eureka-server实例启动后，才能在每个eureka-server主页（eg:http://localhot:8761）中看到启动的所有eureka-server实例。      
