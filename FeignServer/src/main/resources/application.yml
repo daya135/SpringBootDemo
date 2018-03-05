@@ -1,0 +1,16 @@
+server:
+  port: 8772
+spring:
+  application:
+    name: spbootFeign
+    
+#feign\u81ea\u5e26\u7194\u65ad\u529f\u80fd\uff0c\u5728\u8fd9\u5f00\u542f\u5373\u53ef
+feign:
+  hystrix:
+    enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/
+
+      
