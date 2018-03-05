@@ -1,0 +1,18 @@
+server:
+  port: 8770
+spring:
+  application:
+    name: spbootTurbine
+
+turbine: 
+  appConfig: spbootFeign,spbootRibbon
+  aggregator:
+    clusterConfig: default
+  clusterNameExpression: new String("default")  	  
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/
+
+      
