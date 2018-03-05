@@ -45,13 +45,12 @@ public class UserServiceTest {
 //		System.out.println(userDao.countByUserName("地狱少女3"));
 		
 		//自定义结果集+翻页测试
-    	Pageable pageable = new PageRequest(1, 3);
-		List<Object[]> userAddress = userDao.getUserAndAddress(new Long(2), pageable);
-		System.out.println(userAddress);
-		for (Object[] objs : userAddress) {
-			for (int i = 0; i < objs.length; i++)
-				System.out.println(objs[i]);
-		}
+//    	Pageable pageable = new PageRequest(1, 3);
+//		List<Object[]> userAddress = userDao.getUserAndAddress(new Long(2), pageable);
+//		for (Object[] objs : userAddress) {
+//			for (int i = 0; i < objs.length; i++)
+//			System.out.println(objs[i]);
+//		}
 		
 		//多表插入事务测试
 //		UserSpbt user = new UserSpbt();

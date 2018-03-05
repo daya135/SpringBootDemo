@@ -1,0 +1,17 @@
+server:
+  port: 8761
+    
+eureka:
+  instance:
+    hostname: peer1
+  server:
+    enableSelfPreservation: false
+    #\u5fc3\u8df3\u68c0\u6d4b\u65f6\u957f 
+    leaseRenewalIntervalInSeconds: 2
+  client:
+    #\u6ce8\u518c\u81ea\u8eab
+    registerWithEureka: false
+    #\u662f\u5426\u4eceeureka\u670d\u52a1\u5668\u83b7\u53d6\u6ce8\u518c\u4fe1\u606f
+    fetchRegistry: false
+#    serviceUrl:
+#     defaultZone: http://peer2:8762/eureka/,http://peer3:8763/eureka/

@@ -45,13 +45,12 @@ public class UserServiceTest {
 //		System.out.println(userDao.countByUserName("地狱少女3"));
 		
 		//自定义结果集+翻页测试
-    	Pageable pageable = new PageRequest(1, 3);
-		List<Object[]> userAddress = userDao.getUserAndAddress(new Long(2), pageable);
-		System.out.println(userAddress);
-		for (Object[] objs : userAddress) {
-			for (int i = 0; i < objs.length; i++)
-				System.out.println(objs[i]);
-		}
+//    	Pageable pageable = new PageRequest(1, 3);
+//		List<Object[]> userAddress = userDao.getUserAndAddress(new Long(2), pageable);
+//		for (Object[] objs : userAddress) {
+//			for (int i = 0; i < objs.length; i++)
+//			System.out.println(objs[i]);
+//		}
 		
 		//多表插入事务测试
 //		UserSpbt user = new UserSpbt();
@@ -61,12 +60,12 @@ public class UserServiceTest {
 //		userService.regist(user, address);
 		
 		//发送邮件测试
-//        String content="<html>\n" +
-//                "<body>\n" +
-//                "    <h3>hello world ! 这是一封Html邮件!</h3>\n" +
-//                "</body>\n" +
-//                "</html>";
-//        mailService.sendTextMail("jzzperson@163.com", "test html mail", "简单邮件内容");
-//        mailService.sendAttachmentsMail("jzzperson@163.com", "test html mail", "简单邮件内容");
+        String content="<html>\n" +
+                "<body>\n" +
+                "    <h3>hello world ! 这是一封Html邮件!</h3>\n" +
+                "</body>\n" +
+                "</html>";
+        mailService.sendTextMail("jzzperson@163.com", "test html mail", "简单邮件内容");
+        mailService.sendAttachmentsMail("jzzperson@163.com", "test html mail", "简单邮件内容");
 	}
 }

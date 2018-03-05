@@ -47,7 +47,7 @@ public class UserService {
      * 配置查询数据库时使用缓存，太神奇了！
      * 当数据库有更改时没有刷新缓存。。。bug
      */
-    @Cacheable(value="user-key")
+//    @Cacheable(value="user-key")
     public List<UserSpbt> getUserByName(String name) {
         List<UserSpbt> user = userDao.findByUserName("地狱少女");
         System.out.println("若下面没出现“无缓存的时候调用”字样且能打印出数据表示测试成功");  

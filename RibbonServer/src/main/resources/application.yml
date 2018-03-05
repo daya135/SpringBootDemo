@@ -1,0 +1,22 @@
+server:
+  port: 8771
+spring:
+  application:
+    name: spbootRibbon
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
+    #如果这个被禁止，则无法从Eureka获得服务列表  
+    #fetchRegistry: false
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+      

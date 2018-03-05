@@ -1,0 +1,8 @@
+这个demo需要jdk1.8！！
+
+监控界面
+http://localhost:8890/
+客户端调用地址
+http://localhost:8891/hi
+
+注意：两个客户端包含了很多http调用数据格式的测试
