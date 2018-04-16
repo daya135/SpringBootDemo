@@ -1,8 +1,7 @@
 package org.jzz.spbootDemo.controller;
 
 
-import org.apache.log4j.spi.LoggerFactory;
-import org.apache.tomcat.jni.User;
+import org.slf4j.LoggerFactory;
 import org.jzz.spbootDemo.model.UserSpbt;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class DataController {
 	
-	Logger logger = org.slf4j.LoggerFactory.getLogger(DataController.class);
+	Logger logger = LoggerFactory.getLogger(DataController.class);
 	
 	
 	/**
