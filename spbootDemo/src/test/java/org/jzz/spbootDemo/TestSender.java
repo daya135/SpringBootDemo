@@ -12,15 +12,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TestSender {
-	@Autowired
-	private Send sender;
-	
-	
-	@Test
-	public void test () throws InterruptedException{
-		for (int i = 0; i < 20; i ++) {
-			Thread.sleep(200);
-			sender.sendMsg("这是一条测试消息" + i);
-		}
-	}
+//	@Autowired
+//	private Send sender;
+//	
+//	
+//	@Test
+//	public void test () throws InterruptedException{
+//		for (int i = 0; i < 20; i ++) {
+//			Thread.sleep(200);
+//			sender.sendMsg("这是一条测试消息" + i);
+//		}
+//	}
 }

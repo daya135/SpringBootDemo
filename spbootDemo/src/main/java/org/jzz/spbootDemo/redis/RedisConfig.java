@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-@Configuration /*@Configuration可理解为用spring的时候xml里面的<beans>标签*/
-@EnableCaching
+//@Configuration /*@Configuration可理解为用spring的时候xml里面的<beans>标签*/
+//@EnableCaching
 public class RedisConfig extends CachingConfigurerSupport{
 	
 	@Bean

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8"></meta>
+	<meta name="user" content="${user.id}${user.name}"></meta>
+	<title>index</title>
+	<!--<script src="statics/js/jquery-3.2.1.min.js"></script>-->
+	<script src="statics/js/testAjax.js"></script>
+
+</head>
+<body>
+    <h1>this is index</h1>
+    <p>测试从model获取属性</p>
+    <span th:text="${user.id}"></span><br/>
+    <span th:text="${user.userName}"></span>
+    <p>后台使用@ModelAttribute绑定表单提交的数据</p>
+    <form action="post_urlencoded" method="post" id="userform">
+        <label>id：</label><input type="text" name="id"></input><br/>
+        <label>userName：</label><input type="text" name="userName"></input><br/>
+        <input type="submit" value="submit"></input>
+    </form>
+    <br/>
+    <span id="msg1"></span>
+    <br/>
+    <label>method</label>
+	<select id="method">
+		<option value="GET">GET</option>
+		<option value="POST">POST</option>
+	</select>
+	<br/>
+	<label>url</label>
+	<select id="url">
+		<option value="post_urlencoded">post_urlencoded</option>
+		<option value="post_json">post_urlencoded</option>	
+		<option value="get_urlencoded_url">get_urlencoded_url</option><br/>
+		<option value="get_urlencoded_body">get_urlencoded_body</option>
+		<option value="get_json_body">get_json_body</option>
+	</select>
+	<br/>
+	<label>enctype</label>
+	<select id="enctype">
+		<option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+		<option value="application/json">application/json</option>
+	</select>
+    <br/>
+    <button onclick="textAjax()">testajax</button>
+    <span id="ajaxmsg"></span>	
+</body>
+</html>

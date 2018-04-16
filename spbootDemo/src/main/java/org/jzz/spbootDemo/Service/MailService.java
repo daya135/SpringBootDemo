@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
-@Component
+//@Component
 public class MailService{
 	
 	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());

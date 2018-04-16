@@ -38,10 +38,13 @@ public class UserSpbt {
 	
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<AddressSpbt> address;
-		
-
 
 	public UserSpbt(){}
+	
+	public UserSpbt(Long id, String name){
+		this.id = id;
+		this.userName = name;
+	}
 	
 	public UserSpbt(String name) {
 		this.userName = name;
