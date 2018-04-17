@@ -20,7 +20,7 @@ function textAjax() {
 			} else if (enctype == "application/json") {
 				content += '"';
 				content += name;
-				content += '"："';
+				content += '":"';
 				content += value;
 				content += '",';
 			}
@@ -36,6 +36,7 @@ function textAjax() {
 	} else if (enctype == "application/json") {
 		content = content.substring(0, content.length -1);
 		content = "{" + content + "}";
+		content = JSON.stringify(content);
 	}
 	console.log("url: " + url);
 	console.log("method: " + method);
@@ -57,7 +58,7 @@ function realAjax(url, method, enctype, bodyContent) {
 	xmlhttp.open(method, url, true);
 	xmlhttp.setRequestHeader("Content-type", enctype);
 	if (bodyContent != undefined && bodyContent != null && bodyContent.length > 0) {
-		xmlhttp.send(bodyContent);
+		xmlhttp.send(bodyContent); //w3c说仅用于post请求，实际测试get请求不会把content加入到body
 	} else {
 		xmlhttp.send();
 	}
