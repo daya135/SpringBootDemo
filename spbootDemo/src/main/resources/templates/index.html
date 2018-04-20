@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8"></meta>
-	<meta name="user" content="${user.id}${user.name}"></meta>
+<!-- 	<meta name="user" content="${user.id}${user.name}"></meta> -->
 	<title>index</title>
 	<!--<script src="statics/js/jquery-3.2.1.min.js"></script>-->
 	<link rel="stylesheet" type="text/css" href="../statics/css/index.css" />
@@ -44,6 +44,21 @@
 		<option value="application/json">application/json</option>
 	</select><br/><br/>
     <button onclick="textAjax()">testajax</button><br/>
-    <span id="ajaxmsg"></span>	
+    <span id="ajaxmsg"></span>
+    <hr>
+    <h3>测试@ModelAttribute</h3>
+    <form action="modattr2/test" method="post" id="userform2">
+        <label class="label">id：</label><input type="text" name="id"></input><br/>
+        <label class="label">userName：</label><input type="text" name="userName"></input><br/>
+        <label class="label">age：</label><input type="text" name="age"></input><br/><br/>
+        <input type="submit" value="submit"></input>
+    </form>
+    <br/>
+    <a href="http://localhost/modattr3/test1?parm=aa&parm1=bb&parm2=cc">测试</a>
+    <a href="http://localhost/modattr3/index2?parm=aa&parm1=bb&parm2=cc">测试从index2获取model属性</a>
+    <br/>
+    <span th:text="${mod1}"></span><br/>
+    <span th:text="${mod2}"></span><br/>
+    <span th:text="${string}"></span>
 </body>
 </html>

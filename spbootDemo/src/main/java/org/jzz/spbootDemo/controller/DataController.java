@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+/**
+ * @author Merin
+ * 测试 GET vs POST; urlencoded vs json; '@modelAttribute' vs '@Requestbody'
+ */
 @Controller
 public class DataController {
 	
