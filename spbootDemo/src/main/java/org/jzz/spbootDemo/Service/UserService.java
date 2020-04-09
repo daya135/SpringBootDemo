@@ -1,10 +1,7 @@
 package org.jzz.spbootDemo.Service;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
-import org.jzz.spbootDemo.Dao.UserDao;
 import org.jzz.spbootDemo.model.AddressRepository;
 import org.jzz.spbootDemo.model.AddressSpbt;
 import org.jzz.spbootDemo.model.UserRepository;
@@ -16,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("userService")
@@ -34,9 +32,8 @@ public class UserService {
     @Transactional  
     public void saveUser(UserSpbt user) throws Exception{  
         try{   
-	        int i = 0;  
 	        userDao.save(user);  
-//	        System.out.println(5/i);  
+//	        throw new RuntimeException("模拟抛出异常");
         } catch(Exception ex) {  
             System.out.println("执行出错哦：" + ex.getMessage());  
             throw ex;  
@@ -47,9 +44,9 @@ public class UserService {
      * 配置查询数据库时使用缓存，太神奇了！
      * 当数据库有更改时没有刷新缓存。。。bug
      */
-    @Cacheable(value="user-key")
+    @Cacheable(value="user-key", key="#userName")
     public List<UserSpbt> getUserByName(String name) {
-        List<UserSpbt> user = userDao.findByUserName("地狱少女");
+        List<UserSpbt> user = userDao.findByUserName(name);
         System.out.println("若下面没出现“无缓存的时候调用”字样且能打印出数据表示测试成功");  
         return user;
     }
@@ -60,8 +57,8 @@ public class UserService {
     }
     
     public List<UserSpbt> getUserByNamePage(String name, int page, int size) {
-    	Sort sort = new Sort(Direction.DESC, "userName");
-    	Pageable pageable = new PageRequest(page, size, sort);
+    	Sort sort = Sort.by(Direction.DESC, "userName");
+    	Pageable pageable = PageRequest.of(page, size, sort);
     	userDao.findAll(pageable);
     	List<UserSpbt> user = userDao.findByUserNameContaining(name, pageable);
     	return user;
@@ -82,8 +79,7 @@ public class UserService {
     @Transactional
     public int regist(UserSpbt user, AddressSpbt address) {
     	int result = 0;
-    	UserSpbt uSpbt = userDao.save(user);
-    	address.setUserid(uSpbt.getId());
+    	userDao.save(user);
 //    	if (result == 0) {
 //    		throw new RuntimeException("模拟抛出异常，回滚测试！");
 //    	}

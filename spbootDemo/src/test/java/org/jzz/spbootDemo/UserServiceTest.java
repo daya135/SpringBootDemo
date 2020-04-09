@@ -45,8 +45,8 @@ public class UserServiceTest {
 //		System.out.println(userDao.countByUserName("地狱少女3"));
 		
 		//自定义结果集+翻页测试
-    	Pageable pageable = new PageRequest(1, 3);
-		List<Object[]> userAddress = userDao.getUserAndAddress(new Long(2), pageable);
+    	Pageable pageable = PageRequest.of(1, 3, null);
+		List<Object[]> userAddress = userDao.getUserAndAddress(2, pageable);
 		System.out.println(userAddress);
 		for (Object[] objs : userAddress) {
 			for (int i = 0; i < objs.length; i++)

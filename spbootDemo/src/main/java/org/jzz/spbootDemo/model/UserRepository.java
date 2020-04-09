@@ -18,16 +18,20 @@ public interface UserRepository extends JpaRepository<UserSpbt, Integer>{
 	
 	List<UserSpbt> findByUserNameContaining(String string);
 	
+	List<UserSpbt> findByUserNameAndAge(String userName, int age);
+	
 	/* 注意单词之间的By不要缺了。。 */
 	UserSpbt findTopByOrderByAgeDesc();
 	
+	/* 实体SQL查询 */
 	@Query("select count(*) from UserSpbt where userName = ?1")
 	int countByUserName(String name);
 	
-	/* 多表自定义结果集查询，必须指定字段名，不能用u.*的形式 */
-	/* 函数名不能用findxxx的形式，否则会报错！！ */
+	/* 本地SQL查询 */
+	/* 函数名不要用findxxx的形式，否则可能和内置的规则冲突！！ */
 	/* 同名字段不好使用sort对象时，将排序写在sql语句中 */
-	@Query("select u.id, u.userName, ad.id, ad.address from UserSpbt u, AddressSpbt ad where u.id = ad.userid and u.id = ?1 order by ad.id DESC")
-	List<Object[]> getUserAndAddress(Long userid, Pageable pageable);
+	@Query(value = "select a.id, a.username, a.birthday, c.address from user a , user_address b, address c "
+			+ "where a.id = b.user_id and b.address_id = c.id and a.id=:userid", nativeQuery=true)
+	List<Object[]> getUserAndAddress(int userid, Pageable pageable);
 	
 }

@@ -10,43 +10,64 @@
 
 </head>
 <body>
-    <h1>this is index</h1>
+    <h3>this is index</h3><hr>
     <p>测试从model获取属性</p>
-    <span th:text="${user.id}"></span><br/>
+    <span th:text="${user.id}"></span>
     <span th:text="${user.userName}"></span>
-    <p>后台使用@ModelAttribute绑定表单提交的数据</p>
-    <form action="post_urlencoded" method="post" id="userform">
-        <label class="label">id：</label><input type="text" name="id"></input><br/>
-        <label class="label">userName：</label><input type="text" name="userName"></input><br/><br/>
-        <input type="submit" value="submit"></input>
-    </form>
-    <br/>
-    <span id="msg1"></span>
-    <br/>
-    <label class="label">method:</label>
-	<select id="method">
-		<option value="GET">GET</option>
-		<option value="POST">POST</option>
-	</select>
-	<br/>
+    <span th:text="${user.age}"></span>
+    <span th:text="${user.birth}"></span>
+    <hr>
+    
+    <p>测试GetAndPostController</p>
+    <form action="getandpost/post_urlencoded_body" method="post" id="userform">
+        <label class="label">id：</label><input type="text" name="id" id="userid"></input><br/>
+        <label class="label">userName：</label><input type="text" name="userName" id="username"></input></br>
+        <label class="label">age：</label><input type="text" name="age" id="userage"></input></br>
+        <label class="label">birth：</label><input type="text" name="birth" id="userbirth"></input></br>
+        <input type="submit" value="表单提交"></input>
+    </form><br/>
 	<label class="label">url:</label>
 	<select id="url">
-		<option value="post_urlencoded">post_urlencoded</option>
-		<option value="post_json">post_json</option>
-		<option value="get_urlencoded_url">get_urlencoded_url</option><br/>
+		<option value="get_url">get_url</option><br/>
 		<option value="get_urlencoded_body">get_urlencoded_body</option>
 		<option value="get_json_body">get_json_body</option>
+		<option value="post_url">post_url</option>
+		<option value="post_urlencoded_body">post_urlencoded</option>
+		<option value="post_json_body">post_json</option>
 	</select>
 	<br/>
-	<label class="label">enctype:</label>
-	<select id="enctype">
-		<option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
-		<option value="application/json">application/json</option>
-	</select><br/><br/>
-    <button onclick="textAjax()">testajax</button><br/>
-    <span id="ajaxmsg"></span>
+    <button onclick="testGetAndPostController()">ajax提交</button><br/>
+    <span id="GetAndPostMsg"></span>
     <hr>
-    <h3>测试@ModelAttribute</h3>
+    
+    <p>测试ParmController</p>
+    <label class="label">id：</label><input type="text" id="userid_parm"></input><br/>
+    <label class="label">userName：</label><input type="text" id="username_parm"></input></br>
+    <label class="label">age：</label><input type="text" id="userage_parm"></input></br>
+    <label class="label">birth：</label><input type="text" id="userbirth_parm"></input></br>
+    <select id="method_parm">
+		<option value="GET">GET</option><br/>
+		<option value="POST">POST</option>
+	</select>
+	<select id="content_type_parm">
+		<option value="application/x-www-form-urlencoded">urlencoded</option><br/>
+		<option value="application/json">application/json</option>
+	</select>
+	<select id="parmPosition_parm">
+		<option value="url">url</option><br/>
+		<option value="body">requestBody</option>
+	</select>
+    <select id="url_parm">
+		<option value="find_name">find_name</option><br/>
+		<option value="find_name_age">find_name_age</option>
+		<option value="recive_json">recive_json</option>
+	</select>
+    <button onclick="testParmController()">提交</button><br/>
+    <span id="ParmMsg"></span>
+    <hr>
+    
+    
+    <p>测试@ModelAttribute</p>
     <form action="modattr2/test" method="post" id="userform2">
         <label class="label">id：</label><input type="text" name="id"></input><br/>
         <label class="label">userName：</label><input type="text" name="userName"></input><br/>
@@ -60,5 +81,9 @@
     <span th:text="${mod1}"></span><br/>
     <span th:text="${mod2}"></span><br/>
     <span th:text="${string}"></span>
+    
+    <script type=>
+    	defaultData();	//放到最后，否则无法加载元素
+    </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package org.jzz.spbootDemo.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.Set;
@@ -18,30 +19,36 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javassist.Loader.Simple;
+
 @Entity
-@Table(name = "user_test") /* 指定表名，默认用类名 */
+@Table(name = "user") /* 指定表名，默认用类名 */
 public class UserSpbt {
 	
 	@Id	/*标示主键  */
 	@GeneratedValue(strategy = GenerationType.AUTO) /* 自增列  */
-	private Long id;
+	private int id;
 	
-	@Column(nullable = false, name = "user_name") /* 指定字段名，默认用列名 */
+	@Column(nullable = false, name = "username") /* 指定字段名，默认用列名 */
 	private String userName;
 	
 	@Column(nullable = true)
 	private int age;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, name = "birthday")
 	@Temporal(TemporalType.DATE)  /* 定义日期精度 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	//入参，仅针对@ModelAttribute，应该是spring的东西
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")	//出参，springboot中，已经用配置文件中配置了
 	private Date birth;
-	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    private Set<AddressSpbt> address;
 
 	public UserSpbt(){}
 	
-	public UserSpbt(Long id, String name){
+	public UserSpbt(int id, String name){
 		this.id = id;
 		this.userName = name;
 	}
@@ -50,11 +57,11 @@ public class UserSpbt {
 		this.userName = name;
 	}
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	
@@ -70,21 +77,18 @@ public class UserSpbt {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	
 	public Date getBirth() {
 		return birth;
 	}
+	
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-	public Set<AddressSpbt> getAddress() {
-		return address;
-	}
-	public void setAddress(Set<AddressSpbt> address) {
-		this.address = address;
-	}
 	
-    @Override
-    public String toString() {
-        return String.format("user [id=%d, userName=%s, age=%d]", id, userName, age);
-    }
+	//重写这个方法会导致requestBody反序列化失败，时间格式错误，原因未知
+//    @Override
+//    public String toString() {
+//        return String.format("user [id=%d, userName=%s, age=%d, birth=%s]", id, userName, age, new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(birth));
+//    }
 }
