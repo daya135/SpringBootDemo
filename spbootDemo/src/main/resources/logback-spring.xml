@@ -30,7 +30,6 @@
 	<!-- 指定最基础的日志输出级别,默认是debug -->
 	<root level="debug">
 		<appender-ref ref="console"/>
-		<appender-ref ref="file"/>
 	</root>
 	
 	<logger name="org.jzz.spbootDemo.controller.HelloWorldController2" level="info" additivity="false">

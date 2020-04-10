@@ -1,15 +1,13 @@
 package org.jzz.spbootDemo.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.jzz.spbootDemo.Service.UserService;
 import org.jzz.spbootDemo.model.UserRepository;
-import org.jzz.spbootDemo.model.UserSpbt;
+import org.jzz.spbootDemo.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +68,8 @@ public class ParamContoller {
 	 * 测试时前端分别传递位于body、url中的urlencode格式参数
 	 */
 	@RequestMapping(value = "/find_name", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<UserSpbt> testUrlParms(@RequestParam(value = "userName", required = true)String name) {
-		List<UserSpbt> users = userService.getUserByName(name);
+	public @ResponseBody List<User> testUrlParms(@RequestParam(value = "userName", required = true)String name) {
+		List<User> users = userService.getUserByName(name);
 		return users;
 	}
 	
@@ -79,8 +77,8 @@ public class ParamContoller {
 	 * 测试时前端分别传递位于body、url中的urlencode格式参数
 	 */
 	@RequestMapping(value = "/find_name_age", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<UserSpbt> testUrlParms(@RequestParam(value = "userName", required = true)String name, @RequestParam(value = "age", required = true)int age) {
-		List<UserSpbt> users = userDao.findByUserNameAndAge(name, age);
+	public @ResponseBody List<User> testUrlParms(@RequestParam(value = "userName", required = true)String name, @RequestParam(value = "age", required = true)int age) {
+		List<User> users = userDao.findByUserNameAndAge(name, age);
 		return users;
 	}
     

@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.jzz.spbootDemo.model.UserSpbt;
+import org.jzz.spbootDemo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -37,11 +37,11 @@ public class TestRedis {
 	
 	@Test
 	public void testObj() throws Exception {
-		UserSpbt user = new UserSpbt();
+		User user = new User();
 		user.setAge(12);
 		user.setBirth(new Date());
 		user.setUserName("HNATEST");
-		ValueOperations<String, UserSpbt> operations = redisTemplate.opsForValue();
+		ValueOperations<String, User> operations = redisTemplate.opsForValue();
 		operations.set("com.neox", user);
         operations.set("com.neo.f", user, 1, TimeUnit.SECONDS); //超时时间
         Thread.sleep(1000);
