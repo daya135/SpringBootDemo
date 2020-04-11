@@ -38,6 +38,10 @@ public class UserService {
 		return list;
 	}
 	
+	public List<User> getUserById(int id){
+		return userDao.findById(id);
+	}
+	
     @Transactional  
     public void saveUser(User user) throws Exception{  
         try{   
@@ -119,8 +123,9 @@ public class UserService {
 			}
     		user.setAddresss(new ArrayList<Address>());	//处理多方属性（嵌套实体集）
     		for (Object[] userObj : uList) {
-    			AddressPK key = new AddressPK(user.getId(), (String)userObj[4]);
-        		Address address = new Address(key, (String)userObj[5]);
+        		Address address = new Address();
+        		address.setAddressType((String)userObj[4]);
+        		address.setAddress((String)userObj[5]);
         		user.getAddresss().add(address);
         	}
     	}
@@ -128,16 +133,27 @@ public class UserService {
     	return user;
     }
     
+    /** 同时插入user和address */
     @Transactional
-    public int regist(User user, Address address) {
-    	int result = 0;
-    	userDao.save(user);
-//    	if (result == 0) {
-//    		throw new RuntimeException("模拟抛出异常，回滚测试！");
-//    	}
-    	addressDao.save(address);
+    public User saveUserAndAddress(User user, List<Address> addresses) {
+    	User userReturn;
+    	user.setAddresss(addresses);
+    	userReturn = userDao.save(user);	//同时插入有一个问题！user表主键还没生成，则address表插入外键报错
     	
-    	return result;
+//    	for (Address address : addresses) {
+//    		address.setUser(user);
+//    	}
+//    	addresses = addressDao.saveAll(addresses);
+//    	User userReturn = addresses.get(0).getUser();
+
+//    	userReturn = userDao.save(user);
+//    	for (Address address : addresses) {
+//    		address.getId().setUserid(userReturn.getId());
+//    	}
+//    	addressDao.saveAll(addresses);	//不能单独保存，报错 A different object with the same identifier value was already associated with the session
+//    	user.setAddresss(addresses);
+    	
+    	return userReturn; 
     }
 
 }

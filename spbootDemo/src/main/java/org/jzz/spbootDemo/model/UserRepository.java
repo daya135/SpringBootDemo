@@ -20,6 +20,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	List<User> findByUserNameAndAge(String userName, int age);
 	
+	@Query(value="select * from user where id > 0 limit 1,1;", nativeQuery=true)
+	User getTopUser();
+	
 	/* 注意单词之间的By不要缺了。。 */
 	User findTopByOrderByAgeDesc();
 	

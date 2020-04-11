@@ -3,8 +3,8 @@ package org.jzz.spbootDemo.controller;
 import java.util.List;
 
 import org.jzz.spbootDemo.Service.UserService;
-import org.jzz.spbootDemo.model.UserRepository;
 import org.jzz.spbootDemo.model.User;
+import org.jzz.spbootDemo.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

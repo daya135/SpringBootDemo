@@ -18,18 +18,22 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
  * 提供无参构造函数
  * 类名末尾加上PK
  */
+@Deprecated	//fuck联合主键，其中一列同时又是外键，带来一堆事！manyToOne配置全tm乱套！弃之不用
 @Embeddable
 public class AddressPK implements Serializable{
 	private static final long serialVersionUID = 1918446199175160467L;
 	
-//	@Column	//加了会报错：@Column(s) not allowed on a @ManyToOne property: 因为这个属性是外键，所以应该用JoinColumn代替
-	@JoinColumn(name="userid", referencedColumnName="id", nullable = false)		//设置外键
+	@JoinColumn(name="userid", referencedColumnName="id", nullable = false)
 	private int userid;
 
 	@Column(name = "address_type", nullable = false)
 	private String addressType;
 	
 	public AddressPK() {}
+	
+	public AddressPK(String type) {
+		this.addressType = type;
+	}
 	
 	public AddressPK(int userid, String type) {
 		this.userid = userid;

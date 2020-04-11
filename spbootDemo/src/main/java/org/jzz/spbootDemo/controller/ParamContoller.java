@@ -6,8 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.jzz.spbootDemo.Service.UserService;
-import org.jzz.spbootDemo.model.UserRepository;
 import org.jzz.spbootDemo.model.User;
+import org.jzz.spbootDemo.model.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

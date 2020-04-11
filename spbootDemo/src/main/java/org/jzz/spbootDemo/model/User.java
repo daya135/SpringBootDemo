@@ -7,18 +7,26 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "user") /* 指定表名，默认用类名 */
 public class User {
 	
 	@Id	/*标示主键  */
-//	@GeneratedValue(strategy = GenerationType.AUTO) /* 自增列  */
+	@GeneratedValue(strategy = GenerationType.IDENTITY) /* 自增列，GenerationType.auto会有重复的问题,应该交由数据库管理  */
+	@Column(name = "id", nullable = false)
 	private int id;
 	
 	@Column(nullable = false, name = "username") /* 指定字段名，默认用列名 */
@@ -34,7 +42,8 @@ public class User {
 	private Date birth;
 	
 	//一对多属性，关系维护方在多方，设置mappedBy
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="pk.userid")	//当这里改为懒加载时，序列化会报错！
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")	//当这里改为懒加载时，序列化会报错！
+//	@JsonBackReference
 	private List<Address> addresss;
 
 	public User(){}

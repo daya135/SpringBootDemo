@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.jzz.spbootDemo.model.User;
 
+@Deprecated
 public class UserDaoImpl implements UserDao{
 
 	@Override
