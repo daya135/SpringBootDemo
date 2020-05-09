@@ -25,9 +25,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 @Controller
 @RequestMapping("/parm")
-public class ParamContoller {
+public class ParamController {
     
-	Logger logger = LoggerFactory.getLogger(ParamContoller.class);
+	Logger logger = LoggerFactory.getLogger(ParamController.class);
 	
 	@Autowired
 	UserService userService;

@@ -10,15 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "user") /* 指定表名，默认用类名 */
@@ -35,18 +30,24 @@ public class User {
 	@Column(nullable = true)
 	private int age;
 	
-	@Column(nullable = true, name = "birthday")
+	
 //	@Temporal(TemporalType.DATE)  /* 定义日期精度 */
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	//反序列化入参格式，仅针对@ModelAttribute，应该是spring的东西
 //	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")	//springboot中，已经用配置文件中配置了（requestBody和responseBody都适用）
+	@Column(nullable = true, name = "birthday")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")	//反序列化入参格式，仅针对@ModelAttribute
 	private Date birth;
 	
-	//一对多属性，关系维护方在多方，设置mappedBy
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")	//当这里改为懒加载时，序列化会报错！
 //	@JsonBackReference
+	//一对多属性，若将关系维护方在多方，需设置mappedBy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="user")	//当这里改为懒加载时，序列化会报错！
 	private List<Address> addresss;
 
 	public User(){}
+	public User(String userName, int age, Date birth){
+		this.userName = userName;
+		this.age = age;
+		this.birth = birth;
+	}
 	
 	public User(int id, String name){
 		this.id = id;

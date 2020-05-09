@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	List<User> findById(int id);
-	
 	List<User> findByUserName(String name);
 
 	List<User> findByUserNameContaining(String string, Pageable pageable);
@@ -20,7 +18,9 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	List<User> findByUserNameAndAge(String userName, int age);
 	
-	@Query(value="select * from user where id > 0 limit 1,1;", nativeQuery=true)
+	//nativeQuery 只查user也能得到address信息！！可怕
+	//mysql：limit idx,numPerPage， idx不写默认是0
+	@Query(value="select * from user where id > 0 order by id desc limit 0,1;", nativeQuery=true)
 	User getTopUser();
 	
 	/* 注意单词之间的By不要缺了。。 */

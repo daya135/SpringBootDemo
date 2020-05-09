@@ -1,3 +1,9 @@
+select * from user;
+select * from user order by id Desc limit 1,3;
+select * from user order by id Desc limit 3;
+select * from address where userid = 16;
+
+
 CREATE TABLE `user` (
   `id` INT NOT NULL auto_increment,
   `username` VARCHAR(45) NOT NULL,

@@ -11,6 +11,10 @@
 </head>
 <body>
     <h3>this is index</h3><hr>
+    
+    <table>
+    <tr>
+    <td class="tdline" style="border-width:0px 1px 1px 0px;">
     <p>测试从model获取属性</p>
     <span th:text="${user.id}"></span>
     <span th:text="${user.userName}"></span>
@@ -65,8 +69,9 @@
     <button onclick="testParmController()">提交</button><br/>
     <span id="ParmMsg"></span>
     <hr>
+    </td>
     
-    
+    <td>
     <p>测试@ModelAttribute</p>
     <form action="modattr2/test" method="post" id="userform2">
         <label class="label">id：</label><input type="text" name="id"></input><br/>
@@ -81,6 +86,39 @@
     <span th:text="${mod1}"></span><br/>
     <span th:text="${mod2}"></span><br/>
     <span th:text="${string}"></span>
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+    <p>测试跨域请求</p>
+    <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS">参考文档：MDN跨域资源共享(CORS) </a></br>
+    <span>(测试前需要配置127.0.0.1 localhost2的域名映射，并启动第二个实例，端口=81)</span></br>
+    <span>跨域的图片：</span><img src="http://localhost2:81/statics/img/delisha.jpg"></br>
+    <button onclick="testHead_CROS()">ajax自定义头部</button>
+    <span>("mykey": "myvalue")</span>
+    <br/>
+	<button onclick="testMethod_CROS()">ajax特殊请求方法</button>
+	<select id="method_select_CROS">
+		<option value="GET">GET</option><br/>
+		<option value="HEAD">HEAD</option>
+		<option value="POST">POST</option>
+		<option value="DELETE">DELETE</option>
+	</select><br/>
+	<button onclick="testContenType_CROS()">ajax特殊请求类型</button>
+	<select id="contentType_select_CROS">
+		<option value="text/plain">text/plain</option><br/>
+		<option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+		<option value="multipart/form-data">multipart/form-data</option>
+	</select><br/>
+	<span id="msg_CROS"></span></br>
+    </td>
+    
+    <td class="tdline" style="border-width:1px 0px 0px 1px;">
+    <p>空白区域</p>
+	</td>
+	</tr>
+	    
     
     <script type=>
     	defaultData();	//放到最后，否则无法加载元素

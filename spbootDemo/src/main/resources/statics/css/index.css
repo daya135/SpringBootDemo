@@ -6,3 +6,16 @@
 select input {
 	width: 150px;
 }
+
+img {
+	max-width: 100px;
+}
+
+td {
+	vertical-align: top;
+/*	padding-left: 10px; */
+}
+
+.tdline {
+	border:solid #add9c0; 
+}

@@ -1,10 +1,7 @@
 package org.jzz.spbootDemo.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "address") 
 public class Address {
-	private static final long serialVersionUID = 1918446199175160467L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 自增
@@ -32,22 +28,11 @@ public class Address {
 	private String address;
 	
 	//如果对address设置了CascadeType.REMOVE，则删除address会波及到user(不管是删除实体还是通过id都会将user删除)，反之又传递到了address的其他行，很可怕！
-	//如果没设置CascadeType.REMOVE,则通过此表主键删除单条目都不成，更可怕！
 	//可选属性optional=false,表示user不能为空。
-	@ManyToOne(cascade= {CascadeType.MERGE, CascadeType.REFRESH},optional=false)
+	@ManyToOne
 	@JsonBackReference
 	@JoinColumn(name="userid", referencedColumnName="id", nullable = false)
 	private User user;
-	
-	//这样也无法成功，提示Could not determine type for: org.jzz.spbootDemo.model.User, at table: address, for columns: [org.hibernate.mapping.Column(user)]
-//	@JoinColumn(name="userid", referencedColumnName="id", nullable = false)
-//	private int userid;
-//	public int getUserid() {
-//		return userid;
-//	}
-//	public void setUserid(int userid) {
-//		this.userid = userid;
-//	}
 
 	public Address(){}
 	

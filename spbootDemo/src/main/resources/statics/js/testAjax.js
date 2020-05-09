@@ -53,7 +53,7 @@ function testGetAndPostController() {
 	console.log("contentType: " + contentType);
 	console.log("content: " + content);
 	
-	realAjax(url, method, contentType, content, "GetAndPostMsg");
+	realAjax(url, method, null, contentType, content, "GetAndPostMsg");
 }
 
 //测试参数提交
@@ -86,7 +86,7 @@ function testParmController(){
 	console.log("contentType: " + contentType);
 	console.log("content: " + content);
 	
-	realAjax(url, method, contentType, content, "ParmMsg");
+	realAjax(url, method, null, contentType, content, "ParmMsg");
 }
 
 //拼接json或者urlencoded格式字符串数据
@@ -112,7 +112,7 @@ function getContent(contentType, contentObj) {
 	return content;
 }
 
-function realAjax(url, method, contentType, bodyContent, msgId) {
+function realAjax(url, method, headerMap, contentType, bodyContent, msgId) {
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 	  if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
@@ -123,6 +123,11 @@ function realAjax(url, method, contentType, bodyContent, msgId) {
 	}
 	xmlhttp.open(method, url, true);
 	xmlhttp.setRequestHeader("Content-type", contentType);	//设置头部类型
+	if(headerMap != null) {
+		for (let key of headerMap.keys()) {
+			xmlhttp.setRequestHeader(key, headerMap.get(key));
+		}
+	}
 	if (bodyContent != undefined && bodyContent != null && bodyContent.length > 0) {
 		xmlhttp.send(bodyContent); //http协议本身没有规定get不能在body放请求数据，这个看不同的浏览器或者测试工具决定，实际测试谷歌浏览器get请求不会把content加入到body
 	} else {
@@ -130,9 +135,32 @@ function realAjax(url, method, contentType, bodyContent, msgId) {
 	}
 }
 
+//填充表单默认数据
 function defaultData() {
 	document.getElementById("userid").setAttribute('value', '1'); 
 	document.getElementById("username").setAttribute('value', 'jzz');
 	document.getElementById("userage").setAttribute('value', '20');
 	document.getElementById("userbirth").setAttribute('value', '2000-02-06 11:20:00');
+}
+
+
+function testHead_CROS() {
+	var hearKey = "mykey";
+	var url = "http://localhost2:81/cros/header?header=" + hearKey;
+ 	var map = new Map();
+ 	map.set("mykey", "myvalue");
+ 	
+ 	realAjax(url, "GET", map, "application/x-www-form-urlencoded", null, "msg_CROS");
+}
+
+function testMethod_CROS() {
+	var url = "http://localhost2:81/cros/method";
+	var method = document.getElementById("method_select_CROS").value;
+	realAjax(url, method, null, "application/x-www-form-urlencoded", null, "msg_CROS");
+}
+
+function testContenType_CROS() {
+	var url = "http://localhost2:81/cros/contenttype";
+	var contenType = document.getElementById("contentType_select_CROS").value;
+	realAjax(url, "GET", null, contenType, null, "msg_CROS");
 }

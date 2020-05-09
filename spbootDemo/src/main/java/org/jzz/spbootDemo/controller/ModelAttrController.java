@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/modattr3")
-public class DataController3 {
+public class ModelAttrController {
 	
-	Logger logger = LoggerFactory.getLogger(DataController3.class);
+	Logger logger = LoggerFactory.getLogger(ModelAttrController.class);
 	
     @ModelAttribute
     public void myModel1(Model model) {
