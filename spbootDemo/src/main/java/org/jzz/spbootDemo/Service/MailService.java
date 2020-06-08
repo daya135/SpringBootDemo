@@ -1,19 +1,7 @@
 package org.jzz.spbootDemo.Service;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.FileSystem;
-import java.security.GeneralSecurityException;
-import java.util.Date;
-import java.util.Properties;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.LoggerFactory;
@@ -24,8 +12,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-
-import com.sun.mail.util.MailSSLSocketFactory;
 
 @Component
 public class MailService{
@@ -59,15 +45,15 @@ public class MailService{
     	helper.setSubject(Title);
     	helper.setText(content);
     	
-    	String filePath = this.getClass().getResource("/").getPath() + "statics/img/delisha.jpg";
+    	String filePath = System.getProperty("user.dir") + "/target/classes/statics/js/testAjax.js";
     	FileSystemResource attachFile1 = new FileSystemResource(new File(filePath));
-    	filePath = this.getClass().getResource("/").getPath() + "statics/img/delisha.jpg";
+    	filePath = System.getProperty("user.dir") + "/target/classes/statics/img/delisha.jpg";
     	FileSystemResource attachFile2 = new FileSystemResource(new File(filePath));
     	
     	helper.addAttachment(attachFile1.getFilename(), attachFile1);
     	helper.addAttachment(attachFile2.getFilename(), attachFile2);
     	mailSender.send(mimeMessage);
-    	
+    	logger.info("sendAttachmentsMail：" + Title);
     }
 	
 }

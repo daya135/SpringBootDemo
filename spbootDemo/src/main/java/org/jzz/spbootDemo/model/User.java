@@ -1,5 +1,6 @@
 package org.jzz.spbootDemo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "user") /* 指定表名，默认用类名 */
-public class User {
+public class User implements Serializable{
 	
 	@Id	/*标示主键  */
 	@GeneratedValue(strategy = GenerationType.IDENTITY) /* 自增列，GenerationType.auto会有重复的问题,应该交由数据库管理  */

@@ -7,13 +7,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.jzz.spbootDemo.controller.CookieController;
 import org.jzz.spbootDemo.model.Address;
 import org.jzz.spbootDemo.model.AddressPK;
 import org.jzz.spbootDemo.model.AddressRepository;
 import org.jzz.spbootDemo.model.User;
 import org.jzz.spbootDemo.model.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("userService")
 @Transactional
+
 public class UserService {
+	Logger logger = LoggerFactory.getLogger(UserService.class);
+	
 	@Autowired
 	private UserRepository userDao;
 	@Autowired
@@ -44,13 +52,36 @@ public class UserService {
 		List<Address> list = addressDao.findAll();
 		return list;
 	}
-	/** 根据用户id，查询Address */
+	
+	/** 根据id查询用户 */
+    @Cacheable(value="userCache", key="#id")
 	public User getUserById(int id){
+    	logger.info("getUserById:" + id);
 		Optional<User> optional = userDao.findById(id);
 		if (optional != null && !optional.isEmpty())
 			return optional.get();
 		return null;
 	}
+    /** 根据姓名查询用户 */
+    @Cacheable(value="userCache", key="#name") //缓存，key是按照参数的命名来的！
+    public List<User> getUserByName(String name) {
+    	logger.info("getUserByName:" + name);
+        List<User> user = userDao.findByUserName(name);
+        return user;
+    }
+    public List<User> getUserByNameLike(String name) {
+        List<User> user = userDao.findByUserNameContaining(name);
+        return user;
+    }
+    
+    public List<User> getUserByNamePage(String name, int page, int size) {
+    	Sort sort = Sort.by(Direction.DESC, "userName");
+    	Pageable pageable = PageRequest.of(page, size, sort);
+    	userDao.findAll(pageable);
+    	List<User> user = userDao.findByUserNameContaining(name, pageable);
+    	return user;
+    }
+    
 	/** 根据用户id，查询地址 */
 	public List<Address> getAddressByUserId(int userId) {
 		return addressDao.findByUserId(userId);
@@ -74,22 +105,27 @@ public class UserService {
     /** 同时更新User和Address
      *  不能同时新增，外键问题！
      *  */
-    public User saveUser(User user) throws Exception{  
+    @CachePut(value = "userCache", key = "#user.id")	//更新了缓存，所以再次查询时仍然可以走缓存！
+    public User saveUser(User user){  
         try{   
 	        return userDao.save(user);
         } catch(Exception ex) {  
-            throw ex;  
+            logger.info(ex.getMessage());
         }
+        return user;
     }
+    
     /** 集中插入User和List<Address>*/
     public User insertUserAndAddress(User user, List<Address> addresses) {
     	User userNew = userDao.save(user);	//插入user
     	for(Address address : addresses) 
-    		address.setUser(user); //就必须得持有user
+    		address.setUser(user); //每个地址必须得持有user
     	userNew.setAddresss(addresses);
     	userNew = userDao.save(userNew);	//再次保存，插入address
     	return userNew;
     }
+    
+    @CacheEvict(value = "userCache", key = "#id")	//删除缓存，如果不删除则数据库删除后还能从缓存查到数据，亲测
     /** 通过id删除User */
     public void deleteUser(int id) {
     	userDao.deleteById(id);
@@ -116,29 +152,7 @@ public class UserService {
             throw e;  
         }  
     } 
-    
-    /*
-     * @Cacheable查询数据库时使用redis缓存，太神奇了！
-     * 当数据库有更改时没有刷新缓存。。。bug
-     */
-    @Cacheable(value="user-key", key="#userName")
-    public List<User> getUserByName(String name) {
-        List<User> user = userDao.findByUserName(name);
-        System.out.println("若没打印此句，且能查询到数据，表示redis配置生效");  
-        return user;
-    }
-    public List<User> getUserByNameLike(String name) {
-        List<User> user = userDao.findByUserNameContaining(name);
-        return user;
-    }
-    
-    public List<User> getUserByNamePage(String name, int page, int size) {
-    	Sort sort = Sort.by(Direction.DESC, "userName");
-    	Pageable pageable = PageRequest.of(page, size, sort);
-    	userDao.findAll(pageable);
-    	List<User> user = userDao.findByUserNameContaining(name, pageable);
-    	return user;
-    }
+
     
     public User findMaxAge() {
     	return userDao.findTopByOrderByAgeDesc();

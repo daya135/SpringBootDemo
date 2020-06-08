@@ -16,8 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ViewController {
 	
-	@Autowired
-	UserService userService;
+	private UserService userService;
+	
+	/** 如果一个bean有一个构造器，就可以省略@Autowired */
+	public ViewController(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@RequestMapping("index")
 	public String index(Model model){

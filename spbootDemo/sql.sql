@@ -1,7 +1,8 @@
 select * from user;
-select * from user order by id Desc limit 1,3;
-select * from user order by id Desc limit 3;
-select * from address where userid = 16;
+select * from user order by id Desc limit 1;
+
+
+select * from address where userid = 40;
 
 
 CREATE TABLE `user` (

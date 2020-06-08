@@ -1,6 +1,7 @@
 package org.jzz.spbootDemo.Service;
 import java.util.Properties;
 
+@Deprecated
 public class MailSenderInfo {  
 
     // 发送邮件的服务器的IP和端口  

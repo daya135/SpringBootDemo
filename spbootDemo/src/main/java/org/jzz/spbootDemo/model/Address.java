@@ -1,5 +1,7 @@
 package org.jzz.spbootDemo.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "address") 
-public class Address {
+public class Address implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 自增
