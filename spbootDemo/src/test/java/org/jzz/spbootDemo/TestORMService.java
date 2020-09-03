@@ -98,75 +98,75 @@ public class TestORMService {
 	}
 	
 //	@Test
-	/** 删除address,在user.address中移除一行,执行userDao.save() 不行*/
+	/** 删除address,在user.address中移除要删除的address对象,执行userDao.save() ，结果很诡异*/
 	@Transactional
+	@Rollback(false)
 	public void deleteAddress1() throws Exception {
-		int id = 40;
+		int id = 15;
 		User user = userDao.findById(id).get();
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 		user.getAddresss().remove(0);
-		userDao.save(user);	//执行成功，但并没有删除对应条目
-	}
-//	@Test
-	/** 删除address,没有移除address.user,执行addressDao.delete(address) 不行*/
-	@Transactional
-	public void deleteAddress2() throws Exception {
-		int id = 40;
-		User user = userDao.findById(id).get();
+		user = userDao.save(user);	//执行成功，返回的user也少了地址，但数据库没删除，这是最神奇的
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
-		Address address = user.getAddresss().get(0);
-		addressDao.delete(address);	//执行成功，但没有删除条目
-		user = userDao.findById(id).get();
+		user = userDao.findById(id).get();	//这里查出来的user少了地址，但数据库没删除
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 	}
 	
 //	@Test
-	/** 删除address,移除address.user,执行addressDao.delete(address) 不行*/
-	@Transactional
-	public void deleteAddress3() throws Exception {
-		int id = 40;
-		User user = userDao.findById(id).get();
-		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
-		Address address = user.getAddresss().get(0);
-		address.setUser(null);
-		addressDao.delete(address);	//执行成功，没有删除
-		user = userDao.findById(id).get();
-		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
-	}
-//	@Test
-	/** 删除address,在user.address中移除一行，且执行addressDao.delete(address) 和userDao.save(user) 不行*/
+	/** 删除address, 移除address.user（这种断开连接的方式是错的，user是主控方）,执行addressDao.delete(address) 不行*/
 	@Transactional //测试方法必须加上（即使已在service加了此注解）,否则删除操作被跳过 
-//	@Rollback(false)	//不加这个，junit会自动回滚
-	public void deleteAddress4() throws Exception {
-		int id = 40;
+	@Rollback(false)//如果不加这个，junit删完默认会自动回滚
+	public void deleteAddress3() throws Exception {
+		int id = 15;
 		User user = userDao.findById(id).get();
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 		Address address = user.getAddresss().get(0);
-		user.getAddresss().remove(address);		//断开连接
-		addressDao.delete(address);		//删除成功
-		user = userDao.findById(id).get();	
+//		address.setUser(null);	//从address方断开连接的方式不行，导致删除操作报错
+		addressDao.delete(address);	//无法删除，
+		user = userDao.findById(id).get();	//此处可以查到地址，证明没删除
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 	}
 //	@Test
+	/** 删除address,在user.address中移除要删除的address对象，执行addressDao.delete(address) */
 	@Transactional
-	/** 删除address, 先查询id, 也要断开连接（因为生命周期的缘故么）再通过deleteById删除*/
-	public void deleteAddress5() throws Exception {
-		int id = 40;
+	@Rollback(false)	
+	public void deleteAddress4() throws Exception {
+		int id = 16;
 		User user = userDao.findById(id).get();
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 		Address address = user.getAddresss().get(0);
-		user.getAddresss().remove(address);	//即使是通过id删除，因为实体生命周期的原因，此处也需要手动断开连接
-		userService.deleteAddress(address.getId());
+		user.getAddresss().remove(address);		//从user方断开连接
+		addressDao.delete(address);		//删除成功
 		user = userDao.findById(id).get();	
 		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 	}
 	@Test
 	@Transactional
+	@Rollback(false)
+	/** 删除address, ,在user.address中移除要删除的address对象，执行addressDao.deleteById删除*/
+	public void deleteAddress5() throws Exception {
+		int id = 15;
+		User user = userDao.findById(id).get();
+		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
+		Address address = user.getAddresss().get(0);
+		user.getAddresss().remove(address);	//即使是通过id删除，因为实体生命周期的原因，此处也需要手动断开连接
+		addressDao.deleteById(address.getId());	//删除成功
+		user = userDao.findById(id).get();	
+		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
+	}
+	/** 删除address, 不断开连接，执行addressDao.deleteById删除*/
+//	@Test
+	@Transactional
+//	@Rollback(false)	
 	public void deleteAddress6() throws Exception {
-		int id = 1;
+		int id = 15;
+		User user = userDao.findById(id).get();
+		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
+		Address address = user.getAddresss().get(0);
 		logger.info("address count before= " + addressDao.findAll().size());
-		addressDao.deleteById(id);	//通过回滚日志看出来执行了删除操作
-		logger.info("address count after= " + addressDao.findAll().size());	//这句没打印
+		addressDao.deleteById(address.getId());	//无法删除
+		user = userDao.findById(id).get();	
+		logger.info(jsonMapper.writeValueAsString(user.getAddresss()));
 	}
 	
 }
