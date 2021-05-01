@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
-//@Component
+@Component
 public class MailService{
 	
 	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,7 +38,7 @@ public class MailService{
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	/* 如果声明为静态变量则无法注入了，这是为什么？？？ */
+	// 如果声明为静态变量则无法注入了（可以改用set方式注入）
 	@Value("${mail.fromMail.addr}") 
     private String from; //发送账户
     
@@ -59,10 +59,13 @@ public class MailService{
     	helper.setSubject(Title);
     	helper.setText(content);
     	
-    	FileSystemResource attachFile1 = new FileSystemResource(new File("D:\\BugReport.txt"));
-    	FileSystemResource attachFile2 = new FileSystemResource(new File("D:\\Image\\Saved Pictures\\QQ图片20170417094842.png"));
-    	helper.addAttachment("附件-1.txt", attachFile1);
-    	helper.addAttachment("附件-2.png", attachFile2);
+    	String filePath = this.getClass().getResource("/").getPath() + "statics/img/delisha.jpg";
+    	FileSystemResource attachFile1 = new FileSystemResource(new File(filePath));
+    	filePath = this.getClass().getResource("/").getPath() + "statics/img/delisha.jpg";
+    	FileSystemResource attachFile2 = new FileSystemResource(new File(filePath));
+    	
+    	helper.addAttachment(attachFile1.getFilename(), attachFile1);
+    	helper.addAttachment(attachFile2.getFilename(), attachFile2);
     	mailSender.send(mimeMessage);
     	
     }

@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>	<!-- 定义此pom文件遵循哪个项目的描述符 -->
 
 	<groupId>org.jzz</groupId>
 	<artifactId>spbootDemo</artifactId>
@@ -11,11 +10,12 @@
 	<name>spbootDemo</name>
 	<description>Demo project for Spring Boot</description>
 
+	<!-- 父项目 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.2.6.RELEASE</version>
+		<relativePath/> <!-- Maven首先在当前项目的找父项目的pom，然后在文件系统的这个位置（relativePath），然后在本地仓库，再在远程仓库找。 -->
 	</parent>
 
 	<properties>
@@ -23,6 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<mysql.version>5.1.17</mysql.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version> <!-- 解决starter包含的3.1.2与 eclipse不兼容造成pom首行报错的问题-->
 	</properties>
 
 	<dependencies>
@@ -88,8 +89,7 @@
 		<!-- Redis -->
 		<dependency>  
    			<groupId>org.springframework.boot</groupId>  
-    		<artifactId>spring-boot-starter-redis</artifactId>  
-    		<version>1.4.1.RELEASE</version>
+    		<artifactId>spring-boot-starter-data-redis</artifactId>  
 		</dependency> 
 		
 		
@@ -104,6 +104,30 @@
 <!-- 			<groupId>org.springframework.boot</groupId> -->
 <!-- 			<artifactId>spring-boot-starter-amqp</artifactId> -->
 <!-- 		</dependency> -->
+
+		<!-- 以下为 兼容jdk11的配置，因为javaee的一些依赖包被官方移除了 -->
+		<!-- Start jdk11 -->
+<!-- 		<dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency> -->
+		<!-- End jdk11 -->
 		
 	</dependencies>
 

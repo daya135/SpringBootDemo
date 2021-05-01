@@ -2,32 +2,39 @@ package org.jzz.spbootDemo.model;
 
 import java.util.List;
 
-import org.jzz.spbootDemo.model.UserSpbt;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;  
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Component;
 
-public interface UserRepository extends JpaRepository<UserSpbt, Integer>{
+@Component
+public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	List<UserSpbt> findByUserName(String name);
+	List<User> findByUserName(String name);
 
-	List<UserSpbt> findByUserNameContaining(String string, Pageable pageable);
+	List<User> findByUserNameContaining(String string, Pageable pageable);
 	
-	List<UserSpbt> findByUserNameContaining(String string);
+	List<User> findByUserNameContaining(String string);
+	
+	List<User> findByUserNameAndAge(String userName, int age);
+	
+	//nativeQuery 只查user也能得到address信息！！可怕
+	//mysql：limit idx,numPerPage， idx不写默认是0
+	@Query(value="select * from user where id > 0 order by id desc limit 0,1;", nativeQuery=true)
+	User getTopUser();
 	
 	/* 注意单词之间的By不要缺了。。 */
-	UserSpbt findTopByOrderByAgeDesc();
+	User findTopByOrderByAgeDesc();
 	
-	@Query("select count(*) from UserSpbt where userName = ?1")
+	/* 实体SQL查询 */
+	@Query("select count(*) from User where userName=:name")
 	int countByUserName(String name);
 	
-	/* 多表自定义结果集查询，必须指定字段名，不能用u.*的形式 */
-	/* 函数名不能用findxxx的形式，否则会报错！！ */
+	/* 本地SQL查询 */
+	/* 函数名不要用findxxx的形式，否则可能和内置的规则冲突！！ */
 	/* 同名字段不好使用sort对象时，将排序写在sql语句中 */
-	@Query("select u.id, u.userName, ad.id, ad.address from UserSpbt u, AddressSpbt ad where u.id = ad.userid and u.id = ?1 order by ad.id DESC")
-	List<Object[]> getUserAndAddress(Long userid, Pageable pageable);
+	@Query(value = "select a.id, a.username, a.age, date_format(a.birthday, '%Y-%m-%d %H:%i:%S'),b.address_type, b.address from user a left join address b "
+			+ "on a.id = b.userid where a.id=:userid", nativeQuery=true)
+	List<Object[]> getUserAndAddress(int userid);
 	
 }

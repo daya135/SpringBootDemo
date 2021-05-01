@@ -2,7 +2,7 @@ package org.jzz.spbootDemo.controller;
 
 
 import org.slf4j.LoggerFactory;
-import org.jzz.spbootDemo.model.UserSpbt;
+import org.jzz.spbootDemo.model.User;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +24,7 @@ public class DataController {
 	 * 请求类型：POST 参数位置：body 格式：urlencoded
 	 */
 	@RequestMapping(value="post_urlencoded", method=RequestMethod.POST)
-	public @ResponseBody String test1(@ModelAttribute UserSpbt user) {
+	public @ResponseBody String test1(@ModelAttribute User user) {
 		/**
 		 * @ModelAttribute 用于绑定application/x-www-form-urlencoded格式的请求数据
 		 * 此处绑定表单POST的请求参数（位于httpBody，格式：application/x-www-form-urlencoded）
@@ -37,7 +37,7 @@ public class DataController {
 	 * 请求类型：POST 参数位置：body 格式：json
 	 */
 	@RequestMapping(value="post_json", method=RequestMethod.POST)
-	public @ResponseBody String test2(@RequestBody UserSpbt user) {
+	public @ResponseBody String test2(@RequestBody User user) {
 		/**
 		 * @RequestBody 不能绑定x-www-form-urlencoded格式
 		 * 可以绑定json格式的数据，当然此数据一般是位于httpbody中了
@@ -51,7 +51,7 @@ public class DataController {
 	 * 请求类型：GET 参数位置：url 格式：urlencoded
 	 */
 	@RequestMapping(value="get_urlencoded_url", method=RequestMethod.GET)
-	public @ResponseBody String test3(@ModelAttribute UserSpbt user) {
+	public @ResponseBody String test3(@ModelAttribute User user) {
 		logger.info("@ModelAttribute recive:" + user);
 		return "get_urlencoded_url @@ModelAttribute recive:" + user;
 	}
@@ -60,7 +60,7 @@ public class DataController {
 	 * 请求类型：GET 参数位置：httpBody 格式：urlencoded
 	 */
 	@RequestMapping(value="get_urlencoded_body", method=RequestMethod.GET)
-	public @ResponseBody String test4(@ModelAttribute UserSpbt user) {
+	public @ResponseBody String test4(@ModelAttribute User user) {
 		logger.info("@ModelAttribute recive:" + user);
 		return "get_urlencoded_body @@ModelAttribute recive:" + user;
 	}
@@ -69,7 +69,7 @@ public class DataController {
 	 * 请求类型：GET 参数位置：httpBody 格式：json
 	 */
 	@RequestMapping(value="get_json_body", method=RequestMethod.GET)
-	public @ResponseBody String test5(@RequestBody UserSpbt user) {
+	public @ResponseBody String test5(@RequestBody User user) {
 		logger.info("@RequestBody recive:" + user);
 		return "get_json_body @RequestBody recive:" + user;
 	}

@@ -2,12 +2,13 @@ package org.jzz.spbootDemo.Dao;
 
 import java.util.List;
 
-import org.jzz.spbootDemo.model.UserSpbt;
+import org.jzz.spbootDemo.model.User;
 
+@Deprecated
 public class UserDaoImpl implements UserDao{
 
 	@Override
-	public List<UserSpbt> findByName(String name) {
+	public List<User> findByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
