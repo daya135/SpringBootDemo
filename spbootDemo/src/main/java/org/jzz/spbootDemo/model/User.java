@@ -50,6 +50,11 @@ public class User implements Serializable{
 		this.birth = birth;
 	}
 	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", age=" + age + ", birth=" + birth + ", addresss="
+				+ addresss + "]";
+	}
 	public User(int id, String name){
 		this.id = id;
 		this.userName = name;

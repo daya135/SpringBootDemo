@@ -21,9 +21,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<mysql.version>5.1.17</mysql.version>
-		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version> <!-- 解决starter包含的3.1.2与 eclipse不兼容造成pom首行报错的问题-->
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version> <!-- 解决starter包含的3.1.2与 eclipse不兼容造成pom首行报错的问题 eclipse 2018-->
 	</properties>
 
 	<dependencies>
