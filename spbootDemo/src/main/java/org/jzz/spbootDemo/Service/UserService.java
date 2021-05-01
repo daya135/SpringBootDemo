@@ -58,7 +58,7 @@ public class UserService {
 	public User getUserById(int id){
     	logger.info("getUserById:" + id);
 		Optional<User> optional = userDao.findById(id);
-		if (optional != null && !optional.isEmpty())
+		if (optional != null && !optional.isPresent())
 			return optional.get();
 		return null;
 	}
@@ -89,7 +89,7 @@ public class UserService {
 	/** 根据用户id和addressType，查询地址 */
 	public Address getAddressByUserIdAndType(int userId, String type) {
 		Optional<Address> optional = addressDao.findByUserIdAndAddressType(userId, type);
-		if (optional != null && !optional.isEmpty())
+		if (optional != null && !optional.isPresent())
 			return optional.get();
 		return null;
 	}

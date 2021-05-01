@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>	<!-- 定义此pom文件遵循哪个项目的描述符 -->
 
 	<groupId>org.jzz</groupId>
@@ -23,13 +22,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<mysql.version>5.1.17</mysql.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version> <!-- 解决starter包含的3.1.2与 eclipse不兼容造成pom首行报错的问题-->
 	</properties>
 
 	<dependencies>
+	<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -82,7 +84,6 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.17</version>
 		</dependency>
 		
 		<!-- Redis -->
@@ -90,6 +91,7 @@
    			<groupId>org.springframework.boot</groupId>  
     		<artifactId>spring-boot-starter-data-redis</artifactId>  
 		</dependency> 
+		
 		
 		<!-- mail服务 -->
 	    <dependency> 
