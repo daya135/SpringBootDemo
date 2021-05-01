@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
+//@RestController (包含responseBody和controller)
 public class DataController {
 	
 	Logger logger = LoggerFactory.getLogger(DataController.class);
