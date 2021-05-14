@@ -52,6 +52,13 @@
         	<artifactId>spring-boot-devtools</artifactId>
         	<optional>true</optional>
    		</dependency>
+   		
+   		<!-- 自定义配置文件properties代码提示， 搭配spring tools插件使用 -->
+   		<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-autoconfigure-processor</artifactId>
+        	<optional>true</optional>
+        </dependency>
 		
 		<!-- 开启web支持 -->
 		<dependency>
@@ -137,11 +144,19 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				
-				<!-- 修改自动生效配置 -->
+				
 				<configuration>
                 	<fork>true</fork>
+                	<!-- 排除一些打包项目，防止目标jar过大 -->
+                	<excludes>
+                		<exclude>
+                			<groupId>org.springframework.boot</groupId>
+        					<artifactId>spring-boot-autoconfigure-processor</artifactId>
+                		</exclude>
+                	</excludes>
 				</configuration>
 				<dependencies>
+					<!-- 修改自动生效配置 -->
 			    	<dependency>
 			        	<groupId>org.springframework</groupId>
 			        	<artifactId>springloaded</artifactId>
