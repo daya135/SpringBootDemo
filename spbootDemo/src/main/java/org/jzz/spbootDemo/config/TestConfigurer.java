@@ -18,7 +18,7 @@ import ch.qos.logback.core.db.DBHelper;
 
 @Import(DBHelper.class)	//@Import，给容器中导入组件，调用无参构造
 @ImportResource("classpath:beans.xml")
-@Configuration(proxyBeanMethods = false)	//proxyBeanMethods代理bean的方法，Lite、Full模式，体现为单例与非单例
+@Configuration(proxyBeanMethods = false)	//proxyBeanMethods代理bean的方法，Lite、Full模式，体现为单例与非单例, 关掉后能加速，如果组件之间没有依赖的话尽量使用
 @EnableConfigurationProperties(Car2.class)	//只有容器中的组件（@Configuration）才能搭配此注解,且Car2.class要开启配置绑定功能
 public class TestConfigurer {
 	@Bean

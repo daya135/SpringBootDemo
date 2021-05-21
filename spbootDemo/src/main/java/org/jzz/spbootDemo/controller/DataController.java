@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,8 +37,8 @@ public class DataController {
 	/**
 	 * 请求类型：POST 参数位置：body 格式：json
 	 */
-	@RequestMapping(value="post_json", method=RequestMethod.POST)
-	public @ResponseBody String test2(@RequestBody User user) {
+	@PostMapping(value="post_json")
+	public @ResponseBody String test2(User user) {	//不用加@RequestBody
 		/**
 		 * @RequestBody 不能绑定x-www-form-urlencoded格式
 		 * 可以绑定json格式的数据，当然此数据一般是位于httpbody中了

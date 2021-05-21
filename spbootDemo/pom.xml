@@ -71,6 +71,11 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
  		
+ 		<!-- pojo转xml支持 -->
+ 		<dependency>
+ 			 <groupId>com.fasterxml.jackson.dataformat</groupId>
+        	<artifactId>jackson-dataformat-xml</artifactId>
+ 		</dependency>
  		
  		<!-- mybatis配置 -->
 <!--  		<dependency> -->
