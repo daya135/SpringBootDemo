@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">	<!-- 导入名称空间是为了获得代码提示 -->
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+
+<body>
+	<h1 th:text="${h1value}">哈哈</h1>
+	<a href="www.baidu.com" th:href="${link}">动态链接</a>	<!-- $直接替换内容 -->
+	<a href="www.baidu.com" th:href="@{success}">内置链接</a> <!-- @不替换内容，变量名即目标地址(相对路径写法)  -->
+	<a href="www.baidu.com" th:href="@{/success}">内置链接</a>  <!-- 如有前缀会自动加上前缀（绝对路径写法）,推介！因为项目名有可能会变，这种会自适应，一般用来引用静态资源 -->
+</body>
+</html>

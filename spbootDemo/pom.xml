@@ -39,13 +39,6 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- 日志配置，默认为logback框架,已经在starter里面包含 -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.boot</groupId> -->
-<!-- 			<artifactId>spring-boot-starter-logging</artifactId> -->
-<!-- 			<scope>test</scope> -->
-<!-- 		</dependency> -->
-		
 		<!-- 修改自动生效配置 -->
 		<dependency>
         	<groupId>org.springframework.boot</groupId>
@@ -71,11 +64,11 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
  		
- 		<!-- pojo转xml支持 -->
+ 		<!-- pojo转xml支持,autoConfiguration，条件注入，所以不能少,浏览器优先接收xml格式，则内容协商时会响应为xml-->
  		<dependency>
  			 <groupId>com.fasterxml.jackson.dataformat</groupId>
         	<artifactId>jackson-dataformat-xml</artifactId>
- 		</dependency>
+ 		</dependency>  
  		
  		<!-- mybatis配置 -->
 <!--  		<dependency> -->
@@ -84,15 +77,13 @@
 <!--     		<version>1.0.0</version> -->
 <!-- 		</dependency> -->
 		<!-- jpa依赖 -->
-		<dependency>
-        	<groupId>org.springframework.data</groupId>
-        	<artifactId>spring-data-jpa</artifactId>
-   		</dependency>
    		<!--spring-boot-starter-data-jpa包含spring-data-jpa、spring-orm 和 Hibernate 来支持 JPA-->
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
+		<!-- 框架不知道用户需要什么数据库，所以此处没有包含在jdbc的starter中！ -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -148,9 +139,8 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				
-				
 				<configuration>
+					<mainClass>org.jzz.spbootDemo.SpbootDemoApplication</mainClass>
                 	<fork>true</fork>
                 	<!-- 排除一些打包项目，防止目标jar过大 -->
                 	<excludes>
